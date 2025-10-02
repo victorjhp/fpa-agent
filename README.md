@@ -1,6 +1,6 @@
 # FP&A Agent (Mini CFO Copilot)
 
-I built a small, end-to-end Streamlit app that answers simple finance questions directly from CSVs.
+I built a small, end-to-end Streamlit app that answers simple finance questions directly from CSVs!
 
 ## Features
 - **Revenue vs Budget (USD)**
@@ -47,7 +47,7 @@ Place CSVs under `fixtures/` with these schemas (sample files included):
 - **cash.csv**
     - `month,currency,cash`
 
-You can replace the sample CSVs with your own. If you have an .xlsx link, export sheets to CSV and drop them into `fixtures/`.
+You could replace the sample CSVs with your own. If you have an .xlsx link, export sheets to CSV and drop them into `fixtures/`.
 
 ## App Structure
 
@@ -61,7 +61,7 @@ tests/
 fixtures/              # sample data for quick run
 ```
 
-## Example questions
+## Example questions that you can ask
 
 - "What was June 2025 revenue vs budget in USD?"
 - "Show Gross Margin % trend for the last 3 months."
@@ -70,4 +70,4 @@ fixtures/              # sample data for quick run
 
 ## Optional: Export PDF
 
-Click **Export PDF** to generate a 1–2 page PDF with a Revenue vs Budget chart and Cash trend, using current fixtures.
+Click **Export PDF** to generate a 1–2 page PDF with a Revenue vs Budget chart and Cash trend, using current fixtures!
