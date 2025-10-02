@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 from agent.intent import detect_intent
 from agent import tools
-from agent.pdf_export import export_pdf   # PDF 내보내기 함수
+from agent.pdf_export import export_pdf  
 import kaleido
 
 
@@ -54,6 +54,24 @@ def show_opex_breakdown(month: str):
     chart_placeholder.plotly_chart(fig, use_container_width=True)
     st.dataframe(df)
 
+
+def ebitda(month: str, currency: str = "USD"):
+    actuals = pd.read_csv("fixtures/actuals.csv")
+    budget = pd.read_csv("fixtures/budget.csv")
+    fx = pd.read_csv("fixtures/fx.csv")
+
+    act = actuals[actuals["month"] == month]
+    bud = budget[budget["month"] == month]
+
+    revenue = act[act["account"] == "Revenue"]["amount"].sum()
+    cogs = act[act["account"] == "COGS"]["amount"].sum()
+    opex = act[act["account"].str.startswith("Opex")]["amount"].sum()
+
+    ebitda_val = revenue - cogs - opex
+    return ebitda_val
+
+
+
 def show_cash_runway():
     cash, runway = tools.cash_runway()
     st.subheader("Cash Runway")
@@ -63,10 +81,8 @@ def show_cash_runway():
     else:
         st.metric("Runway (months)", f"{runway:,.1f}")
 
-    # Load cash.csv
     cash_df = pd.read_csv("fixtures/cash.csv")
 
-    # ✅ 이미 cash_usd 컬럼이 있으므로 그대로 사용
     if "cash_usd" in cash_df.columns:
         cash_df["amount_usd"] = cash_df["cash_usd"]
     elif "cash" in cash_df.columns:
@@ -79,7 +95,6 @@ def show_cash_runway():
     chart_placeholder.plotly_chart(fig, use_container_width=True)
 
 
-# ---------------- Main Logic ----------------
 if q:
     parsed = detect_intent(q)
     with st.expander("Parsed Query", expanded=False):
@@ -110,7 +125,7 @@ st.subheader("Optional: Export PDF")
 
 if st.button("Generate PDF Report"):
     try:
-        pdf_path = export_pdf()   # pdf_export.py 안 함수 호출
+        pdf_path = export_pdf()   
         with open(pdf_path, "rb") as f:
             st.download_button("Download PDF", data=f, file_name=pdf_path, mime="application/pdf")
     except Exception as e:
