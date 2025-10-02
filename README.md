@@ -1,22 +1,30 @@
 # FP&A Agent (Mini CFO Copilot)
 
-A small, end-to-end Streamlit app that answers simple finance questions from CSVs:
-- Revenue vs Budget (USD)
-- Gross Margin % trend
-- Opex breakdown
-- Cash runway
+I built a small, end-to-end Streamlit app that answers simple finance questions directly from CSVs.
+
+## Features
+- **Revenue vs Budget (USD)**
+- **Gross Margin % trend**
+- **Opex breakdown**
+- **EBITDA (proxy)** = Revenue – COGS – Opex
+- **Cash runway** = Cash ÷ avg monthly net burn (last 3 months)
+
+Extra Tool to Explore:
+- **Export PDF** (1–2 pages: Revenue vs Budget + Cash Trend)
+
+---
 
 ## Quick start
 
 ```bash
-# 1) Create and activate a virtualenv (recommended)
+# 1) Create and activate a virtualenv
 python3 -m venv .venv && source .venv/bin/activate
 
-# 2) Install deps
+# 2) Install dependencies
 pip install -r requirements.txt
 
 # 3) Run tests (uses sample fixtures)
-pytest -q
+pytest -v
 
 # 4) Launch the app
 streamlit run app.py
